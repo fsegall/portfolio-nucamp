@@ -1,0 +1,25 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'trackers/style.css' %}">
+
+{% if category_list %} <!-- or latest_category_list -->
+    <ul>
+    {% for category in category_list %} 
+        <li><a href={% url 'trackers:categories_single' category.id %}>{{ category.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No categories are available.</p>
+{% endif %}
+<form action="{% url 'trackers:categories' %}" method="post">
+    {% csrf_token %}
+    {{ category_form }}
+    <!-- <fieldset>
+        <legend><h1>Add a new category</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <label for="category">Category name</label>
+            <input type="text" name="category" id="category">
+            <br>
+    </fieldset> -->
+    <button type="submit">Add</button>
+</form>

@@ -1,0 +1,13 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'trackers/style.css' %}">
+
+{% if customer_list %} <!-- or latest_customer_list -->
+    <ul>
+    {% for customer in customer_list %} 
+        <li><a href={% url 'trackers:customers_single' customer.id %}>{{ customer.full_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No customers available.</p>
+{% endif %}
