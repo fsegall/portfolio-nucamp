@@ -1,0 +1,12 @@
+
+<h1>{{ customer.full_name }}</h1>
+{% if income_item %} 
+<h2>Income item:</h2>
+<p>{{ income_item.label }}</p>
+<p>{{ income_item.amount }}</p>
+{% endif %} 
+{% if expense_item %} 
+<h2>Expense item:</h2>
+<p>{{ expense_item.label }}</p>
+<p>{{ expense_item.amount }}</p>
+{% endif %} 

@@ -1,13 +1,15 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Category, Customer
+from .models import Category, Customer, Income, Expense
 # from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from .forms import CategoryNameForm
 from django.forms import modelformset_factory
 from django.views import generic
+from django.urls import reverse
+import re
 
 
 def index(request):
@@ -90,6 +92,44 @@ class CustomersListView(generic.ListView):
 class CustomerSingleView(generic.DetailView):
     model = Customer
     template_name = "trackers/customer_single.html"
+
+def TransactionsListView(request):
+
+    template_name = "trackers/transactions.html"
+
+    context = {}
+
+    context["income_list"] = Income.objects.all()
+    context["expense_list"] = Expense.objects.all()
+
+    return render(request,
+                  template_name,
+                  context 
+                  )
+        
+def TransactionSingleView(request, pk):
+    template_name = "trackers/transaction_single.html"
+
+    customer_id = ""
+
+    is_income = re.search("incomes", request.path)
+
+    context = {}
+
+    if is_income:
+        income_item = Income.objects.get(pk=pk)
+        context["income_item"] = income_item
+        customer_id = income_item.customer_id
+    else:
+        expense_item = Expense.objects.get(pk=pk)
+        context["expense_item"] = expense_item
+        customer_id = expense_item.customer_id
+
+    if customer_id:
+        context["customer"] = Customer.objects.get(pk=customer_id)
+
+    return render(request, template_name, context)
+
 
 
 

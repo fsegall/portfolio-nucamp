@@ -1,0 +1,27 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'trackers/style.css' %}">
+
+<h1>Incomes</h1>
+
+{% if income_list %} 
+    <ul>
+    {% for income in income_list %} 
+        <li><a href={% url 'trackers:transactions_income_single' income.id %}>{{ income.label }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No incomes available.</p>
+{% endif %}
+
+<h1>Expenses</h1>
+
+{% if expense_list %} 
+    <ul>
+    {% for expense in expense_list %} 
+        <li><a href={% url 'trackers:transactions_expense_single' expense.id %}>{{ expense.label }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No expenses available.</p>
+{% endif %}
