@@ -4,6 +4,7 @@ from django.contrib import admin
 from .models import Balance, Income, Expense, Category, Customer
 
 class CategoryAdmin(admin.ModelAdmin):
+    
     fieldsets = [
         ("Category Name", {"fields": ["name"]}),
         ("Date information", {"fields": ["created_at"]}),
