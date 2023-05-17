@@ -1,13 +1,21 @@
-{% load static %}
-
-<link rel="stylesheet" href="{% static 'trackers/style.css' %}">
-
-{% if customer_list %} <!-- or latest_customer_list -->
-    <ul>
-    {% for customer in customer_list %} 
-        <li><a href={% url 'trackers:customers_single' customer.id %}>{{ customer.full_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No customers available.</p>
-{% endif %}
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>{% block title %}Categorias{% endblock %}</title>
+            {% load bootstrap5 %}
+            {% bootstrap_css %}
+            {% bootstrap_javascript %}
+            </head>
+        <body>
+            <h1 class="h1 text-center">Customers</h1>
+            {% if customer_list %} <!-- or latest_customer_list -->
+                <ul class="list-group">
+                {% for customer in customer_list %} 
+                    <li class="list-group-item"><a href={% url 'trackers:customers_single' customer.id %}>{{ customer.full_name }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No customers available.</p>
+            {% endif %}
+        </body>
+    </html>

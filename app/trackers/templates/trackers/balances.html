@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>{% block title %}Categorias{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+
+  <body>
+    <h1 class="h1 text-center pb-2">Customer Balance</h1>
+
+    {% if customers_balance %} <!-- or latest_customer_list -->
+    <ul>
+      {% for balance in customers_balance %}
+      <!-- <li><a href={% url 'trackers:customers_single' balance.customer.id %}>{{ customer.full_name }}</a></li> -->
+      <table class="table">
+        <tr>
+          <th>Customer Name</th>
+          <th>Current Balance</th>
+          <th>Previous Balance</th>
+          <th>Transaction Date</th>
+          <th>Transaction id</th>
+
+        </tr>
+        <tr>
+          <td>{{ balance.customer.full_name }}</td>
+          <td>{{ balance.current_balance }}</td>
+          <td>{{ balance.previous_balance }}</td>
+          <td>{{ balance.transaction_date }}</td>
+          <td>{{ balance.transaction_id}}</td>
+        </tr>
+      </table>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No customers' balances available.</p>
+    {% endif %}
+  </body>
+
+</html>

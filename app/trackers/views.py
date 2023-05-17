@@ -1,7 +1,8 @@
+from urllib import request
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Category, Customer, Income, Expense
+from .models import Category, Customer, Income, Expense, Balance
 # from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
@@ -11,15 +12,17 @@ from django.views import generic
 from django.urls import reverse
 import re
 
+################### Placeholder Views
+################### 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the trackers index.")
+    return HttpResponse("Hello, world. You're are visiting the index page.")
 
 def thanks(request):
     return HttpResponse("Hello, world. You're have submitted a form.")
 
-def transactions(request):
-    return HttpResponse("Hello, world. You're at the trackers transactions page.")
+################### Category
+################### 
 
 def categories(request):
     AuthorFormSet = modelformset_factory(Category, fields=["name"])
@@ -51,9 +54,6 @@ def categories(request):
     return render(request, "trackers/index.html", context)
 
 
-def transactions_single(request, transaction_id):
-    return HttpResponse("You're looking at transaction %s." % transaction_id)
-
 # def categories_single(request, category_id):
 #     # try:
 #     #     category = Category.objects.get(pk=category_id)
@@ -73,12 +73,12 @@ class CategoriesListView(generic.ListView):
         # return Category.objects.order_by("-created_at")[:2]
         return Category.objects.order_by("created_at")
 
-
-
 class CategorySingleView(generic.DetailView):
     model = Category
     template_name = "trackers/category_single.html"
 
+################### Customer
+###################
 
 class CustomersListView(generic.ListView):
     template_name = "trackers/customers.html"
@@ -92,6 +92,28 @@ class CustomersListView(generic.ListView):
 class CustomerSingleView(generic.DetailView):
     model = Customer
     template_name = "trackers/customer_single.html"
+        
+################### Balance
+###################
+        
+def BalancesListView(request):
+    template_name = "trackers/balances.html"
+
+    context = {}
+
+    balances = Balance.objects.all()
+
+    context["customers_balance"] = balances
+    
+    return render(request,
+                  template_name,
+                  context 
+                  )
+
+
+        
+################### Transaction
+###################
 
 def TransactionsListView(request):
 

@@ -1,12 +1,33 @@
+<!DOCTYPE html>
+<html>
 
-<h1>{{ customer.full_name }}</h1>
-{% if income_item %} 
-<h2>Income item:</h2>
-<p>{{ income_item.label }}</p>
-<p>{{ income_item.amount }}</p>
-{% endif %} 
-{% if expense_item %} 
-<h2>Expense item:</h2>
-<p>{{ expense_item.label }}</p>
-<p>{{ expense_item.amount }}</p>
-{% endif %} 
+<head>
+    <title>{% block title %}Categorias{% endblock %}</title>
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="h1 text-center">{{ customer.full_name }}</h1>
+
+        {% if income_item %}
+        <div class="card">
+            <h2 class="h2 text-center card-header">Income Item</h2>
+            <div class="card-body">
+                <p>{{ income_item.label }}</p>
+                <p cla>{{ income_item.amount }}</p>
+            </div>
+        </div>
+        {% endif %} {% if expense_item %}
+        <div class="card">
+            <h2 class="h2 text-center card-header">Expense Item</h2>
+            <div class="card-body">
+                <p>{{ expense_item.label }}</p>
+                <p>{{ expense_item.amount }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

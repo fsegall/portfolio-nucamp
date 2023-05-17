@@ -1,1 +1,5 @@
-<h1>{{ customer.full_name }}</h1>
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<h1 class="text-center">{{ customer.full_name }}</h1>

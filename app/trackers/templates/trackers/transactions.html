@@ -1,27 +1,40 @@
-{% load static %}
+<!DOCTYPE html>
+<html>
 
-<link rel="stylesheet" href="{% static 'trackers/style.css' %}">
+  <head>
+      <title>{% block title %}Categorias{% endblock %}</title>
+      {% load bootstrap5 %}
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
+  </head>
 
-<h1>Incomes</h1>
+  <body>
 
-{% if income_list %} 
-    <ul>
-    {% for income in income_list %} 
-        <li><a href={% url 'trackers:transactions_income_single' income.id %}>{{ income.label }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No incomes available.</p>
-{% endif %}
+      <h1 class="h1 text-center">Incomes</h1>
 
-<h1>Expenses</h1>
+      {% if income_list %}
+      <ul class="list-group">
+          {% for income in income_list %}
+          <li class="list-group-item"><a href={% url 'trackers:transactions_income_single' income.id %}>{{ income.label
+                  }}</a></li>
+          {% endfor %}
+      </ul>
+      {% else %}
+      <p>No incomes available.</p>
+      {% endif %}
 
-{% if expense_list %} 
-    <ul>
-    {% for expense in expense_list %} 
-        <li><a href={% url 'trackers:transactions_expense_single' expense.id %}>{{ expense.label }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No expenses available.</p>
-{% endif %}
+      <h1 class="h1 text-center">Expenses</h1>
+
+      {% if expense_list %}
+      <ul class="list-group">
+          {% for expense in expense_list %}
+          <li class="list-group-item"><a href={% url 'trackers:transactions_expense_single' expense.id %}>{{ expense.label
+                  }}</a></li>
+          {% endfor %}
+      </ul>
+      {% else %}
+      <p>No expenses available.</p>
+      {% endif %}
+  </body>
+
+</html>
