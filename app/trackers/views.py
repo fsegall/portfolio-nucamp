@@ -1,5 +1,6 @@
 from urllib import request
 from django.shortcuts import render
+from django.db.models import Sum
 
 # Create your views here.
 from .models import Category, Customer, Income, Expense, Balance
@@ -99,19 +100,70 @@ class CustomerSingleView(generic.DetailView):
 def BalancesListView(request):
     template_name = "trackers/balances.html"
 
-    context = {}
+    tempDict = {}
 
     balances = Balance.objects.all()
 
-    context["customers_balance"] = balances
+    tempDict["customers_balance"] = balances
+    
+    return render(request,
+                  template_name,
+                  tempDict 
+                  )
+
+def BalancesClientListView(request):
+    template_name = "trackers/balances.html"
+
+    tempDict = {}
+
+    customers_ids = []
+
+    customers = Customer.objects.all()
+
+    for customer in customers:
+        customers_ids.append(customer.id)
+
+    def get_incomes_expenses_per_customer(id_array):
+        for id in id_array:
+            full_name = Customer.objects.get(pk=id).full_name
+            incomes = Income.objects.values_list('amount').filter(customer__id = id).aggregate(Sum('amount'))
+            expenses = Expense.objects.values_list('amount').filter(customer__id = id).aggregate(Sum('amount'))
+            tempDict[str(id)[:8]] = {'full_name': full_name, 'incomes': incomes, 'expenses': expenses}
+
+    get_incomes_expenses_per_customer(customers_ids)
+
+    def balance_per_customer():
+
+        for customer in tempDict:
+
+            print('**************************')
+
+            print('Incomes Sum')
+            print(tempDict[customer]['incomes'])
+            print('Expenses Sum')
+            print(tempDict[customer]['expenses'])
+
+            print('**************************')
+
+            print('Balance')
+
+            print('**************************')
+
+            tempDict[customer]['balance'] = tempDict[customer]['incomes']['amount__sum'] - tempDict[customer]['expenses']['amount__sum'] 
+
+            print(tempDict[customer]['balance'])
+    
+    balance_per_customer()
+        
+    context = {}
+
+    context["customers_balance"] = tempDict.values()
     
     return render(request,
                   template_name,
                   context 
                   )
 
-
-        
 ################### Transaction
 ###################
 
