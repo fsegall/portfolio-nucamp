@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-      <title>{% block title %}Categorias{% endblock %}</title>
-      {% load bootstrap5 %}
-      {% bootstrap_css %}
-      {% bootstrap_javascript %}
-  </head>
+<head>
+    <title>{% block title %}Categorias{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
 
-  <body>
+<body>
 
-      <h1 class="h1 text-center">Incomes</h1>
+    <h1 class="h1 text-center">Incomes</h1>
 
-      {% if income_list %}
-      <ul class="list-group">
-          {% for income in income_list %}
-          <li class="list-group-item"><a href={% url 'trackers:transactions_income_single' income.id %}>{{ income.label
-                  }}</a></li>
-          {% endfor %}
-      </ul>
-      {% else %}
-      <p>No incomes available.</p>
-      {% endif %}
+    {% if income_list %}
+    <ul class="list-group">
+        {% for income in income_list %}
+        <li class="list-group-item">
+            <a href={% url 'trackers:transactions_income_single' income.id %}>{{income.label}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No incomes available.</p>
+    {% endif %}
 
-      <h1 class="h1 text-center">Expenses</h1>
+    <h1 class="h1 text-center">Expenses</h1>
 
-      {% if expense_list %}
-      <ul class="list-group">
-          {% for expense in expense_list %}
-          <li class="list-group-item"><a href={% url 'trackers:transactions_expense_single' expense.id %}>{{ expense.label
-                  }}</a></li>
-          {% endfor %}
-      </ul>
-      {% else %}
-      <p>No expenses available.</p>
-      {% endif %}
-  </body>
+    {% if expense_list %}
+    <ul class="list-group">
+        {% for expense in expense_list %}
+        <li class="list-group-item">
+            <a href={% url 'trackers:transactions_expense_single' expense.id %}>{{expense.label}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No expenses available.</p>
+    {% endif %}
+</body>
 
 </html>

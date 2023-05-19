@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>{% block title %}Categorias{% endblock %}</title>
-        {% load bootstrap5 %}
-        {% bootstrap_css %}
-        {% bootstrap_javascript %}
-    </head>
+<head>
+    <title>{% block title %}Categorias{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
 
-    <body>
-        <h1 class="h1 text-center">Categories</h1>
-        <div class="container">
-            {% if category_list %} <!-- or latest_category_list -->
-            <ul class="list-group">
-                {% for category in category_list %}
-                <li class="list-group-item"><a href={% url 'trackers:categories_single' category.id %}>{{ category.name
-                        }}</a></li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p>No categories are available.</p>
-            {% endif %}
-            <form action="{% url 'trackers:categories' %}" method="post">
-                {% csrf_token %}
-                {{ category_form }}
-                <!-- <fieldset>
+<body>
+    <h1 class="h1 text-center">Categories</h1>
+    <div class="container">
+        {% if category_list %} <!-- or latest_category_list -->
+        <ul class="list-group">
+            {% for category in category_list %}
+            <li class="list-group-item">
+                <a href={% url 'trackers:categories_single' category.id %}>{{ category.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No categories are available.</p>
+        {% endif %}
+        <form action="{% url 'trackers:categories' %}" method="post">
+            {% csrf_token %}
+            {{ category_form }}
+            <!-- <fieldset>
             <legend><h1>Add a new category</h1></legend>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
                 <label for="category">Category name</label>
                 <input type="text" name="category" id="category">
                 <br>
         </fieldset> -->
-                <!-- <button type="submit">Add</button> -->
-            </form>
-        </div>
-    </body>
+            <!-- <button type="submit">Add</button> -->
+        </form>
+    </div>
+</body>
 
 </html>

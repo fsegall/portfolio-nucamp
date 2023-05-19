@@ -8,7 +8,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("customers/", views.CustomersListView.as_view(), name="customers"),
     path("customers/<str:pk>", views.CustomerSingleView.as_view(), name="customers_single"),
-    path("balances/", views.BalancesListView, name="balances"),
+    path("balances/", views.BalancesClientListView, name="balances"),
 
     path("transactions/", views.TransactionsListView, name="transactions"),
     path("transactions/incomes/<str:pk>", views.TransactionSingleView, name="transactions_income_single"),
