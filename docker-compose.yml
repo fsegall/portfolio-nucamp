@@ -1,21 +1,21 @@
 version: "3.8"
 services:
-  # web:
-  #   build: ./app
-  #   command: python manage.py runserver 0.0.0.0:8000
-  #   volumes:
-  #     - ./app/:/usr/src/app/
-  #   ports:
-  #     - 8000:8000
-  #   environment:
-  #     - DB_NAME=${DB_NAME}
-  #     - DB_USER=${DB_USER}
-  #     - DB_PASSWORD=${DB_PASSWORD}
-  #     - DB_HOST=${DB_HOST}
-  #     - DB_PORT=${DB_PORT}
-  #     - DATABASE=${DATABASE}
-  #   depends_on:
-  #     - pg
+  web:
+    build: ./app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app/:/usr/src/app/
+    ports:
+      - 8000:8000
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DATABASE=${DATABASE}
+    depends_on:
+      - pg
   pg:
       container_name: pg_container
       image: postgres:13.2-alpine
