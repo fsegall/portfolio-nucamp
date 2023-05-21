@@ -56,18 +56,6 @@ jobs:
       matrix:
         python-version: [3.8, 3.9]
     steps:
-      # Logs in with your Azure credentials
-      - name: Azure login
-        uses: azure/login@v1.4.6
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      - uses: azure/postgresql@v1
-        with:
-          server-name: fsegall-workshop4-server
-          connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
-          plsql-file: './data.sql'
           
       # Checks out the repository this file is in
       - uses: actions/checkout@v3
@@ -79,6 +67,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - uses: azure/postgresql@v1
+        with:
+          server-name: fsegall-workshop4-server
+          connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
+          plsql-file: './data.sql'
       - name: Run Migrations
         run: | 
           python app/manage.py makemigrations trackers
@@ -86,6 +79,13 @@ jobs:
       - name: Run Tests
         run: |
           python app/manage.py test
+      # Logs in with your Azure credentials
+      - name: Azure login
+        uses: azure/login@v1.4.6
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       # Builds and pushes an image up to your Azure Container Registry
       - name: Build and push image to ACR
