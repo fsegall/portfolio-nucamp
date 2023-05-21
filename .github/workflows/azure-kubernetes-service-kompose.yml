@@ -127,6 +127,8 @@ jobs:
           use-kubelogin: 'true'
 
       # Runs Kompose to create manifest files
+      - name: Adds user to docker group
+        run: sudo usermod -aG docker $USER
       - name: Bake deployment
         uses: azure/k8s-bake@v2
         with:
