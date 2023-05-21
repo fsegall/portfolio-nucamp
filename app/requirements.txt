@@ -1,0 +1,7 @@
+django==4.2
+python-decouple==3.8
+psycopg2-binary==2.9.6
+beautifulsoup4==4.12.2 
+django-bootstrap-v5==1.0.11 
+soupsieve==2.4.1
+django-pgtrigger==4.6.0
