@@ -72,13 +72,13 @@ jobs:
           server-name: fsegall-workshop4-server
           connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
           plsql-file: './app/data/misc/django_init.sql'
-#       - name: Run Migrations
-#         run: | 
-#           python app/manage.py makemigrations trackers
-#           python app/manage.py migrate
-#       - name: Run Tests
-#         run: |
-#           python app/manage.py test
+      - name: Run Migrations
+        run: | 
+          python app/manage.py makemigrations trackers
+          python app/manage.py migrate --noinput
+      - name: Run Tests
+        run: |
+          python app/manage.py test
       # Logs in with your Azure credentials
       - name: Azure login
         uses: azure/login@v1.4.6
