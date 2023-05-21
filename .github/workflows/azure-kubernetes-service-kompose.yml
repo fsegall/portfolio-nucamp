@@ -139,5 +139,3 @@ jobs:
             
           images: |
             ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ secrets.CONTAINER_NAME }}:${{ github.sha }}
-          secretType: 'dockerRegistry'
-          imagepullsecrets: ${{ secrets.IMAGE_PULL_SECRET_NAME }}
