@@ -8,39 +8,9 @@ services:
     ports:
       - 8000:8000
     environment:
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DB_PORT}
       - DATABASE=${DATABASE}
-    depends_on:
-      - pg
-  pg:
-      container_name: pg_container
-      image: postgres:13.2-alpine
-      restart: always
-      environment:
-          POSTGRES_USER: ${DB_USER}
-          POSTGRES_PASSWORD: ${DB_PASSWORD}
-          POSTGRES_DB: ${DB_NAME}
-          POSTGRES_HOST_AUTH_METHOD: trust
-      ports:
-          - "5432:5432"
-      volumes:
-          - ./data:/data
-          - ./data/misc/django_init.sql:/docker-entrypoint-initdb.d/1-django-init.sql
-  pgadmin:
-      container_name: pgadmin_container
-      image: dpage/pgadmin4:5.2
-      restart: always
-      environment:
-          PGADMIN_DEFAULT_EMAIL: admin@example.com
-          PGADMIN_DEFAULT_PASSWORD: admin123
-          PGADMIN_LISTEN_PORT: 5433
-          PGADMIN_CONFIG_SERVER_MODE: "False"
-          PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
-      ports:
-          - "5433:5433"
-      depends_on:
-          - pg
