@@ -28,7 +28,7 @@ spec:
       containers:
         - args:
             - python
-            - manage.py
+            - app/manage.py
             - runserver
             - 0.0.0.0:8000
           env:
