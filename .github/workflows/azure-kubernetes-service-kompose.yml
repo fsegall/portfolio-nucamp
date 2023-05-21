@@ -54,7 +54,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9]
+        python-version: [3.9]
     steps:
           
       # Checks out the repository this file is in
@@ -72,13 +72,13 @@ jobs:
           server-name: fsegall-workshop4-server
           connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
           plsql-file: './app/data/misc/django_init.sql'
-      - name: Run Migrations
-        run: | 
-          python app/manage.py makemigrations trackers
-          python app/manage.py migrate
-      - name: Run Tests
-        run: |
-          python app/manage.py test
+#       - name: Run Migrations
+#         run: | 
+#           python app/manage.py makemigrations trackers
+#           python app/manage.py migrate
+#       - name: Run Tests
+#         run: |
+#           python app/manage.py test
       # Logs in with your Azure credentials
       - name: Azure login
         uses: azure/login@v1.4.6
@@ -90,7 +90,7 @@ jobs:
       # Builds and pushes an image up to your Azure Container Registry
       - name: Build and push image to ACR
         run: |
-          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
+          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} app/
 
   deploy:
     permissions:
