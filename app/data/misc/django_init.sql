@@ -1,6 +1,3 @@
-DROP DATABASE IF EXISTS e_tracker_db;
-CREATE DATABASE e_tracker_db;
-
 \c e_tracker_db
 
 SET statement_timeout = 0;
