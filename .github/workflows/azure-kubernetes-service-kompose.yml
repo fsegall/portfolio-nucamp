@@ -126,22 +126,16 @@ jobs:
           admin: 'false'
           use-kubelogin: 'true'
 
-      # Runs Kompose to create manifest files
-      - name: Adds user to docker group
-        run: sudo usermod -aG docker $USER
-      - name: Bake deployment
-        uses: azure/k8s-bake@v2
-        with:
-          renderEngine: "kompose"
-          dockerComposeFile: ${{ env.DOCKER_COMPOSE_FILE_PATH }}
-          kompose-version: "latest"
-        id: bake
-
       # Deploys application based on manifest files from previous step
       - name: Deploy application
         uses: Azure/k8s-deploy@v4
         with:
           action: deploy
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          manifests: |
+            manifests/portfolio-default-networkpolicy.yaml
+            manifests/web-claim0-persistentvolumeclaim.yaml
+            manifests/web-deployment.yaml
+            manifests/web-service.yaml
+            
           images: |
             ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
