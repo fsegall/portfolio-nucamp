@@ -71,7 +71,7 @@ jobs:
         with:
           server-name: fsegall-workshop4-server
           connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
-          plsql-file: './data.sql'
+          plsql-file: './data/misc/django_init.sql'
       - name: Run Migrations
         run: | 
           python app/manage.py makemigrations trackers
