@@ -54,7 +54,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.8, 3.9]
     steps:
       # Checks out the repository this file is in
       - uses: actions/checkout@v3
@@ -68,11 +68,11 @@ jobs:
           pip install -r requirements.txt
       - name: Run Tests
         run: |
-          python manage.py test
+          python app/manage.py test
       - name: Run Migrations
         run: | 
-          python manage.py makemigrations trackers
-          python manage.py migrate
+          python app/manage.py makemigrations trackers
+          python app/manage.py migrate
       
       # Logs in with your Azure credentials
       - name: Azure login
